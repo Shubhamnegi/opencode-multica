@@ -12,6 +12,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     python3-pip \
     python3-venv \
     build-essential \
+    xz-utils \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
@@ -22,6 +23,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends gh \
 
 # Install opencode
 RUN npm install -g opencode-ai
+
+# Install Claude Code
+RUN curl -fsSL https://claude.ai/install.sh | bash
+
+# Install Hermes Agent (headless, skip browser automation)
+RUN curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash -s -- --skip-browser
 
 # Install multica CLI
 RUN curl -fsSL https://raw.githubusercontent.com/multica-ai/multica/main/scripts/install.sh | bash
